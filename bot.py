@@ -8,7 +8,7 @@ from multiprocessing import Process
 from youtubesearchpython import SearchVideos
 
 
-bot = telepotpro.Bot("API_TOKEN")
+bot = telepotpro.Bot("1458562036:AAH8hVqrIByvF5nB5VqIqJoNflgLfriPPIk")
 
 def startMsg(chat_id, first_name):
 	bot.sendMessage(chat_id, '🤖 Hello, '+ first_name +'!\n\n'
