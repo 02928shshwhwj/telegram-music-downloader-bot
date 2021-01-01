@@ -11,26 +11,26 @@ from youtubesearchpython import SearchVideos
 bot = telepotpro.Bot("1458562036:AAH8hVqrIByvF5nB5VqIqJoNflgLfriPPIk")
 
 def startMsg(chat_id, first_name):
-	bot.sendMessage(chat_id, '🤖 مرحبا '+ first_name +'!\n\n'
-	'انا بوت الاغاني الذكي 🐰 بقدر نزلك أي غنية بدك هيي بصيغة mp3 مباااشرة بس ابعتلي :\n\n'
-	'"*/music* _اسم الغنية_"  أو\n'
-	'"*/music* _اسم لميغنيها - اسم الغنااي_"\n\n'
-	'هاد الغبي @Mr00lucifer هوي لي طورني 🤦🏻‍♂️🤦🏻‍♂️ وهاد بوتنا التاني @Sy404_bot 🎶', parse_mode= 'Markdown')
+	bot.sendMessage(chat_id, '🤖 Hello, '+ first_name +'!\n\n'
+	'📩 Send me:\n\n'
+	'"*/music* _song name_"  or\n'
+	'"*/music* _musician name - song name_"\n\n'
+	'to order some music. 🎶', parse_mode= 'Markdown')
 
 def errorMsg(chat_id, error_type):
 	if error_type == 'too_long':
-		bot.sendMessage(chat_id, '‼️ *عم تضحك عليي وتعطيني فيديو طويل كتير لحولو غنية 😒😒!*\n'
+		bot.sendMessage(chat_id, '‼️ *Oops! Video too long to convert!*\n'
 			'Order something 30 minutes or less.', parse_mode= 'Markdown')
 
 	if error_type == 'spotify_command':
-		bot.sendMessage(chat_id, "‼️ *خطأ مامندعم روابط سبوتيفاي*\n"
+		bot.sendMessage(chat_id, "‼️ *Oops! The bot doesn't support Spotify links!*\n"
 			'Try: "*/music* _song name_"\n'
 			'or: "*/music* _musician name - song name_"', parse_mode= 'Markdown')
 
 	if error_type == 'invalid_command':
-		bot.sendMessage(chat_id, '‼️ *شبك لك عموو شو عم تبعت 😒😒 علمتك كيف!*\n'
-			'ابعت: "*/music* _اسم الغنااي_"\n'
-			'أو: "*/music* _اسم المغني-اسم الغنية_"', parse_mode= 'Markdown')
+		bot.sendMessage(chat_id, '‼️ *Oops! Invalid command!*\n'
+			'Try: "*/music* _song name_"\n'
+			'or: "*/music* _musician name - song name_"', parse_mode= 'Markdown')
 
 def downloadMusic(file_name, link):
 	ydl_opts = {
@@ -62,21 +62,21 @@ def validMusicInput(userInput, chat_id, chat_type):
 			file_name = title +' - '+str(randint(0,999999))+'.mp3'
 
 			bot.sendMessage(chat_id,'🎵 '+title+'\n'+'🔗 '+link)
-			DownloadingMsg = bot.sendMessage(chat_id,'⬇️ دقيقة عم نزلهاااا... '
-				'\n_(طول بالك لاتسبسب ساامعك😒)_', parse_mode= 'Markdown')
+			DownloadingMsg = bot.sendMessage(chat_id,'⬇️ Downloading... '
+				'\n_(this may take a while.)_', parse_mode= 'Markdown')
 
 			#Download the music
 			downloadMusic(file_name, link)
 
 			bot.sendAudio(chat_id,audio=open(file_name,'rb'))
 			bot.deleteMessage((chat_id, DownloadingMsg['message_id']))
-			bot.sendMessage(chat_id, '✅ جاهزة قول يسلمو!')
+			bot.sendMessage(chat_id, '✅ Sucess!')
 
 			print ("Sucess!")
 			os.remove(file_name)
 
 		else:
-			errorMsg(chat_id, 'طويلة كتيير عم تضحك عليي وتبعت ملفات فيديو لحولها صوت 😒😒😒')
+			errorMsg(chat_id, 'too_long')
 
 		pass
 
